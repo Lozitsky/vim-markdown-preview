@@ -1,3 +1,4 @@
+<title>vim-markdown-preview.html</title>
 Vim Markdown Preview
 ====================
 
@@ -29,11 +30,12 @@ The aim of this plugin is to be light weight with minimal dependencies. Thus, th
 Installation
 ------------
 
+* [Manually](https://opensource.com/article/20/2/how-install-vim-plugins) (Vim 8 and above)
 * With [Pathogen](https://github.com/tpope/vim-pathogen): Place `vim-markdown-preview/` in `.vim/bundle/`.
 * With [Vundle](https://github.com/VundleVim/Vundle.vim):
     * Add `Plugin 'JamshedVesuna/vim-markdown-preview'` to your `.vimrc`.
     * Launch `vim` and run `:PluginInstall`
-
+* Since 
 See more [Options](#options).
 
 Usage
@@ -54,10 +56,15 @@ Requirements
 
 ### Unix:
 
+* [KDE5, KDE6](https://github.com/jinliu/kdotool?tab=readme-ov-file#introduction) It should work with both Wayland and X11 sessions.
 * [Markdown](http://daringfireball.net/projects/markdown/) or [grip](https://github.com/joeyespo/grip) (for [GitHub flavoured markdown](#github))
     * If using Grip, put `let vim_markdown_preview_github=1` in your `.vimrc` file
-* [xdotool](https://github.com/jordansissel/xdotool)
-* [Google Chrome](https://www.google.com/chrome/browser/) or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
+* [kdotool](https://github.com/jinliu/kdotool)
+* [dotool](https://git.sr.ht/%7Egeb/dotool)
+* [Mozilla Firefox](https://www.mozilla.org/firefox) or
+  [Google Chrome](https://www.google.com/chrome/browser/) or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
+
+Since Firefox does not add titles on its own, for the plugin to work correctly, you must insert the first line `"<title>vim-markdown-preview.html</title>"` into the md-file. Otherwise, it is impossible to identify the page, any new blank page and page without a title will be called “Mozilla Firefox”
 
 It is recommended to use grip when rendering Unicode characters.
 
@@ -108,7 +115,9 @@ let vim_markdown_preview_hotkey='<C-m>'
 <a name='browser'></a>
 ### The `vim_markdown_preview_browser` option
 
-By default, if you are using Unix, [Google Chrome](https://www.google.com/chrome/) is the default browser. If you are on Mac OS X, [Safari](https://www.apple.com/safari/) is the default.
+By default, if you are using Unix, [Google Chrome](https://www.google.com/chrome/) is the default browser. If you are on Mac OS X, [Safari](https://www.apple.com/safari/) is the default. If you are using Linux, execute the following command in terminal, to change the default browser. ```bash
+sudo update-alternatives --config x-www-browser
+```
 Note that bug [#16](https://github.com/JamshedVesuna/vim-markdown-preview/issues/16) does not allow cross operating system and browser support. See the [wiki page](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown) for more help.
 
 Default: `'Google Chrome'`
@@ -116,6 +125,10 @@ Default: `'Google Chrome'`
 Example: Using Google Chrome.
 ```vim
 let vim_markdown_preview_browser='Google Chrome'
+```
+  Using Mozilla Firefox.
+```vim
+let vim_markdown_preview_browser='Mozilla Firefox'
 ```
 
 <a name='temp'></a>
