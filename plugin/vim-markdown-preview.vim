@@ -156,15 +156,15 @@ function! Vim_Markdown_Preview_Local()
 
   if g:vim_markdown_preview_github == 1
     call system('grip "' . b:curr_file . '" --export vim-markdown-preview.html --title vim-markdown-preview.html')
-  elseif g:vim_markdown_preview_perl == 1
-    call system('Markdown.pl "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
-  elseif g:vim_markdown_preview_pandoc == 1
-    call system('pandoc --standalone "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
   else
-    call system('markdown "' . b:curr_file . '" > vim-markdown-preview.html')
-  endif
-  if v:shell_error
-    echo 'Please install the necessary requirements: https://github.com/JamshedVesuna/vim-markdown-preview#requirements'
+    call system('echo "<head><title>vim-markdown-preview.html</title><meta charset=\"utf-8\"/></head>"> /tmp/vim-markdown-preview.html')
+    if g:vim_markdown_preview_perl == 1
+      call system('Markdown.pl "' . b:curr_file . '" >> /tmp/vim-markdown-preview.html')
+    elseif g:vim_markdown_preview_pandoc == 1
+      call system('pandoc --standalone "' . b:curr_file . '" >> /tmp/vim-markdown-preview.html')
+    else
+      call system('markdown "' . b:curr_file . '" >> vim-markdown-preview.html')
+    endif
   endif
 
   if g:vmp_osname == 'unix'
@@ -180,9 +180,9 @@ function! Vim_Markdown_Preview_Local()
         call system('echo sleep 1 | dotool')
         if browser_wid == ""
           if g:vim_markdown_preview_use_xdg_open == 1
-            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+            call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
           else
-             call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+             call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
           endif
         else
           call system('kdotool windowactivate ' . browser_wid)
@@ -198,9 +198,9 @@ function! Vim_Markdown_Preview_Local()
         let browser_wid = system("kdotool search --name ' - " .  g:vim_markdown_preview_browser . "'")
         if browser_wid == ""
           if g:vim_markdown_preview_use_xdg_open == 1
-            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+            call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
           else
-            call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+            call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
           endif
         else
           call system('kdotool windowactivate ' . browser_wid)
@@ -208,7 +208,7 @@ function! Vim_Markdown_Preview_Local()
           let browser_wid = system("kdotool search --name 'vim-markdown-preview.html - " .  g:vim_markdown_preview_browser . "'")
             call system('echo key ctrl+r | dotool')
           if browser_wid == ""
-            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type /tmp/vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
+            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
           endif
         endif
       endif
