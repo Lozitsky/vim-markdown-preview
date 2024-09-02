@@ -75,20 +75,55 @@ function! Vim_Markdown_Preview()
   endif
 
   if g:vmp_osname == 'unix'
-    let chrome_wid = system("xdotool search --name 'vim-markdown-preview.html - " . g:vim_markdown_preview_browser . "'")
-    if !chrome_wid
-      if g:vim_markdown_preview_use_xdg_open == 1
-        call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
-      else
-        call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+    let curr_wid = system('kdotool getactivewindow')
+    if g:vim_markdown_preview_browser == "Mozilla Firefox"
+      let browser_wid = system("kdotool search --name 'vim-markdown-preview.htm'")
+    elseif g:vim_markdown_preview_browser == "Google Chrome"
+      let browser_wid = system("kdotool search --name 'vim-markdown-preview.html - " . g:vim_markdown_preview_browser . "'")
+    endif
+    if browser_wid == ""
+      if g:vim_markdown_preview_browser == "Mozilla Firefox"
+        let browser_wid = system("kdotool search --name 'firefox'")
+        call system('echo sleep 1 | dotool')
+        if browser_wid == ""
+          if g:vim_markdown_preview_use_xdg_open == 1
+            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+          else
+             call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+          endif
+        else
+          call system('kdotool windowactivate ' . browser_wid)
+          call system('{ echo key ctrl+l; echo type %; sleep 1; echo keydown k:57; echo type vim-markdown-preview.html; sleep 1; echo keydown k:15; echo keydown k:28; } | dotool')
+          call system('echo sleep 1 | dotool')
+          let browser_wid = system("kdotool search --name 'vim-markdown-preview.html'")
+            call system('echo key ctrl+r | dotool')
+          if browser_wid == ""
+            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type /tmp/vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
+          endif
+        endif
+      elseif g:vim_markdown_preview_browser == "Google Chrome"
+        let browser_wid = system("kdotool search --name ' - " .  g:vim_markdown_preview_browser . "'")
+        if browser_wid == ""
+          if g:vim_markdown_preview_use_xdg_open == 1
+            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+          else
+            call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+          endif
+        else
+          call system('kdotool windowactivate ' . browser_wid)
+          call system('{ echo key ctrl+shift+a; echo type vim-markdown-preview.html; echo keydown k:28; sleep 1; } | dotool')
+          let browser_wid = system("kdotool search --name 'vim-markdown-preview.html - " .  g:vim_markdown_preview_browser . "'")
+            call system('echo key ctrl+r | dotool')
+          if browser_wid == ""
+            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type /tmp/vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
+          endif
+        endif
       endif
     else
-      let curr_wid = system('xdotool getwindowfocus')
-      call system('xdotool windowmap ' . chrome_wid)
-      call system('xdotool windowactivate ' . chrome_wid)
-      call system("xdotool key 'ctrl+r'")
-      call system('xdotool windowactivate ' . curr_wid)
+      call system('kdotool windowactivate ' . browser_wid)
+      call system('echo keydown k:63 | dotool')
     endif
+    call system('kdotool windowactivate ' . curr_wid)
   endif
 
   if g:vmp_osname == 'mac'
@@ -129,20 +164,55 @@ function! Vim_Markdown_Preview_Local()
   endif
 
   if g:vmp_osname == 'unix'
-    let chrome_wid = system("xdotool search --name vim-markdown-preview.html - " . g:vim_markdown_preview_browser . "'")
-    if !chrome_wid
-      if g:vim_markdown_preview_use_xdg_open == 1
-        call system('xdg-open vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
-      else
-        call system('see vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+    let curr_wid = system('kdotool getactivewindow')
+    if g:vim_markdown_preview_browser == "Mozilla Firefox"
+      let browser_wid = system("kdotool search --name 'vim-markdown-preview.htm'")
+    elseif g:vim_markdown_preview_browser == "Google Chrome"
+      let browser_wid = system("kdotool search --name 'vim-markdown-preview.html - " . g:vim_markdown_preview_browser . "'")
+    endif
+    if browser_wid == ""
+      if g:vim_markdown_preview_browser == "Mozilla Firefox"
+        let browser_wid = system("kdotool search --name 'firefox'")
+        call system('echo sleep 1 | dotool')
+        if browser_wid == ""
+          if g:vim_markdown_preview_use_xdg_open == 1
+            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+          else
+             call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+          endif
+        else
+          call system('kdotool windowactivate ' . browser_wid)
+          call system('{ echo key ctrl+l; echo type %; sleep 1; echo keydown k:57; echo type vim-markdown-preview.html; sleep 1; echo keydown k:15; echo keydown k:28; } | dotool')
+          call system('echo sleep 1 | dotool')
+          let browser_wid = system("kdotool search --name 'vim-markdown-preview.html'")
+            call system('echo key ctrl+r | dotool')
+          if browser_wid == ""
+            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type /tmp/vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
+          endif
+        endif
+      elseif g:vim_markdown_preview_browser == "Google Chrome"
+        let browser_wid = system("kdotool search --name ' - " .  g:vim_markdown_preview_browser . "'")
+        if browser_wid == ""
+          if g:vim_markdown_preview_use_xdg_open == 1
+            call system('xdg-open /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &')
+          else
+            call system('see /tmp/vim-markdown-preview.html 1>/dev/null 2>/dev/null &') 
+          endif
+        else
+          call system('kdotool windowactivate ' . browser_wid)
+          call system('{ echo key ctrl+shift+a; echo type vim-markdown-preview.html; echo keydown k:28; sleep 1; } | dotool')
+          let browser_wid = system("kdotool search --name 'vim-markdown-preview.html - " .  g:vim_markdown_preview_browser . "'")
+            call system('echo key ctrl+r | dotool')
+          if browser_wid == ""
+            call system('{ echo key ctrl+t ctrl+l; sleep 1; echo type /tmp/vim-markdown-preview.html; sleep 1; echo keydown k:28; } | dotool')
+          endif
+        endif
       endif
     else
-      let curr_wid = system('xdotool getwindowfocus')
-      call system('xdotool windowmap ' . chrome_wid)
-      call system('xdotool windowactivate ' . chrome_wid)
-      call system("xdotool key 'ctrl+r'")
-      call system('xdotool windowactivate ' . curr_wid)
+      call system('kdotool windowactivate ' . browser_wid)
+      call system('echo keydown k:63 | dotool')
     endif
+    call system('kdotool windowactivate ' . curr_wid)
   endif
 
   if g:vmp_osname == 'mac'
