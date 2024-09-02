@@ -1,4 +1,3 @@
-<title>vim-markdown-preview.html</title>
 Vim Markdown Preview
 ====================
 
@@ -56,15 +55,29 @@ Requirements
 
 ### Unix:
 
-* [KDE5, KDE6](https://github.com/jinliu/kdotool?tab=readme-ov-file#introduction) It should work with both Wayland and X11 sessions.
-* [Markdown](http://daringfireball.net/projects/markdown/) or [grip](https://github.com/joeyespo/grip) (for [GitHub flavoured markdown](#github))
+* X11 or Wayland: [KDE5, KDE6](https://github.com/jinliu/kdotool?tab=readme-ov-file#introduction) 
+    * It should work with both Wayland and X11 sessions.
+* [Markdown](http://daringfireball.net/projects/markdown/) or [pandoc](https://pandoc.org/) or [grip](https://github.com/joeyespo/grip) (for [GitHub flavoured markdown](#github))
     * If using Grip, put `let vim_markdown_preview_github=1` in your `.vimrc` file
 * [kdotool](https://github.com/jinliu/kdotool)
 * [dotool](https://git.sr.ht/%7Egeb/dotool)
 * [Mozilla Firefox](https://www.mozilla.org/firefox) or
   [Google Chrome](https://www.google.com/chrome/browser/) or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
 
-Since Firefox does not add titles on its own, for the plugin to work correctly, you must insert the first line `"<title>vim-markdown-preview.html</title>"` into the md-file. Otherwise, it is impossible to identify the page, any new blank page and page without a title will be called “Mozilla Firefox”
+Since Firefox does not add titles on its own, for the plugin to work correctly, you must insert the first line 
+
+`<title>vim-markdown-preview.html</title>`
+
+into the md-file. Otherwise, it is impossible to identify the page, any new blank page and page without a title will be called “Mozilla Firefox”
+
+* If using Markdown.pl, put 
+
+  `let vim_markdown_preview_perl=1`
+  
+  `let vim_markdown_preview_browser='Mozilla Firefox'` 
+  
+  in your `.vimrc` file
+      
 
 It is recommended to use grip when rendering Unicode characters.
 
