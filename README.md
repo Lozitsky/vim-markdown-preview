@@ -64,23 +64,6 @@ Requirements
 * [Mozilla Firefox](https://www.mozilla.org/firefox) or
   [Google Chrome](https://www.google.com/chrome/browser/) or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
 
-Since Firefox does not add titles on its own, for the plugin to work correctly, you must insert the first line 
-
-`<title>vim-markdown-preview.html</title>`
-
-into the md-file. Otherwise, it is impossible to identify the page, any new blank page and page without a title will be called “Mozilla Firefox”
-
-* If using Markdown.pl, put 
-
-  `let vim_markdown_preview_perl=1`
-  
-  `let vim_markdown_preview_browser='Mozilla Firefox'` 
-  
-  in your `.vimrc` file
-      
-
-It is recommended to use grip when rendering Unicode characters.
-
 Options
 -------
 All options have default values and work out of the box. If you prefer to change these, just add the following lines to your [.vimrc](http://vim.wikia.com/wiki/Open_vimrc_file) file.
@@ -135,12 +118,15 @@ Note that bug [#16](https://github.com/JamshedVesuna/vim-markdown-preview/issues
 
 Default: `'Google Chrome'`
 
-Example: Using Google Chrome.
-```vim
+Example: 
+
+* Using Google Chrome.
+    * ```vim
 let vim_markdown_preview_browser='Google Chrome'
 ```
-  Using Mozilla Firefox.
-```vim
+
+* Using Mozilla Firefox.
+    * ```vim
 let vim_markdown_preview_browser='Mozilla Firefox'
 ```
 

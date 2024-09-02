@@ -63,13 +63,17 @@ function! Vim_Markdown_Preview()
 
   if g:vim_markdown_preview_github == 1
     call system('grip "' . b:curr_file . '" --export /tmp/vim-markdown-preview.html --title vim-markdown-preview.html')
-  elseif g:vim_markdown_preview_perl == 1
-    call system('Markdown.pl "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
-  elseif g:vim_markdown_preview_pandoc == 1
-    call system('pandoc --standalone "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
   else
-    call system('markdown "' . b:curr_file . '" > /tmp/vim-markdown-preview.html')
+    call system('echo "<head><title>vim-markdown-preview.html</title><meta charset=\"utf-8\"/></head>"> /tmp/vim-markdown-preview.html')
+    if g:vim_markdown_preview_perl == 1
+      call system('Markdown.pl "' . b:curr_file . '" >> /tmp/vim-markdown-preview.html')
+    elseif g:vim_markdown_preview_pandoc == 1
+      call system('pandoc --standalone "' . b:curr_file . '" >> /tmp/vim-markdown-preview.html')
+    else
+      call system('markdown "' . b:curr_file . '" >> /tmp/vim-markdown-preview.html')
+    endif
   endif
+
   if v:shell_error
     echo 'Please install the necessary requirements: https://github.com/JamshedVesuna/vim-markdown-preview#requirements'
   endif
