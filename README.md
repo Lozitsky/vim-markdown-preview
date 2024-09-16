@@ -5,17 +5,17 @@ Vim Markdown Preview
 - [Installation](#installation)
 - [Usage](#usage)
 - [Requirements](#requirements)
-    - [Mac OS X](#mac-os-x)
-    - [Unix](#unix)
+  - [Mac OS X](#mac-os-x)
+  - [Unix](#unix)
 - [Options](#options)
-    - [Image rendering & save on buffer write](#toggle)
-    - [Hotkey](#hotkey)
-    - [Browser](#browser)
-    - [Temp File](#temp)
-    - [Github Flavoured Markdown](#github)
-    - [Markdown.pl](#perl)
-    - [Pandoc](#pandoc)
-    - [Use xdg-open](#xdg)
+  - [Image rendering & save on buffer write](#toggle)
+  - [Hotkey](#hotkey)
+  - [Browser](#browser)
+  - [Temp File](#temp)
+  - [Github Flavoured Markdown](#github)
+  - [Markdown.pl](#perl)
+  - [Pandoc](#pandoc)
+  - [Use xdg-open](#xdg)
 - [Behind the Scenes](#behind-the-scenes)
 
 Intro
@@ -32,9 +32,9 @@ Installation
 * [Manually](https://opensource.com/article/20/2/how-install-vim-plugins) (Vim 8 and above)
 * With [Pathogen](https://github.com/tpope/vim-pathogen): Place `vim-markdown-preview/` in `.vim/bundle/`.
 * With [Vundle](https://github.com/VundleVim/Vundle.vim):
-    * Add `Plugin 'JamshedVesuna/vim-markdown-preview'` to your `.vimrc`.
-    * Launch `vim` and run `:PluginInstall`
-* Since 
+  * Add `Plugin 'JamshedVesuna/vim-markdown-preview'` to your `.vimrc`.
+  * Launch `vim` and run `:PluginInstall`
+
 See more [Options](#options).
 
 Usage
@@ -49,20 +49,23 @@ Requirements
 
 ### Mac OS X:
 
-* [Markdown](http://daringfireball.net/projects/markdown/) or [grip](https://github.com/joeyespo/grip) (for [GitHub flavoured markdown](#github))
-    * If using Grip, put `let vim_markdown_preview_github=1` in your `.vimrc` file
-* [Safari](https://www.apple.com/safari/)
+* [Markdown][md_lnk] or [grip][grip_lnk] (for [GitHub flavored markdown](#github))
+  * If using Grip, put `let vim_markdown_preview_github=1` in your `.vimrc` file
+* [Safari][safari_lnk]
 
 ### Unix:
 
 * X11 or Wayland: [KDE5, KDE6](https://github.com/jinliu/kdotool?tab=readme-ov-file#introduction) 
-    * It should work with both Wayland and X11 sessions.
-* [Markdown](http://daringfireball.net/projects/markdown/) or [pandoc](https://pandoc.org/) or [grip](https://github.com/joeyespo/grip) (for [GitHub flavoured markdown](#github))
-    * If using Grip, put `let vim_markdown_preview_github=1` in your `.vimrc` file
+  * It should work with both Wayland and X11 sessions.
+* [Markdown][md_lnk] or [pandoc][pandoc_lnk] or [grip][grip_lnk] (for [GitHub flavored markdown](#github))
+  * If using Grip, put
+ 
+    >`let vim_markdown_preview_github=1` 
+
+    in your `.vimrc` file
 * [kdotool](https://github.com/jinliu/kdotool)
 * [dotool](https://git.sr.ht/%7Egeb/dotool)
-* [Mozilla Firefox](https://www.mozilla.org/firefox) or
-  [Google Chrome](https://www.google.com/chrome/browser/) or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
+* [Mozilla Firefox][ff_lnk] or [Google Chrome][chrome_lnk] or [other browser](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown#ubuntu-or-debian)
 
 Options
 -------
@@ -70,6 +73,7 @@ All options have default values and work out of the box. If you prefer to change
 Note that after changing an option, you have to restart Vim for the change to take effect.
 
 <a name='toggle'></a>
+
 ### The `vim_markdown_preview_toggle` option
 
 This option does two things (to be fixed by [#17](https://github.com/JamshedVesuna/vim-markdown-preview/issues/17)):
@@ -82,21 +86,25 @@ There are a total of four values (`0`, `1`, `2`, `3`) this option can take.
 Default: `0`, which maps Control p (*not* a buffer write) to generating the preview and does *not* display images.
 
 Example: To display images with the [hotkey](#hotkey) mapping (defaults to Control p).
-```vim
-let vim_markdown_preview_toggle=1
-```
+
+>```vim
+>let vim_markdown_preview_toggle=1
+>```
 
 Example: To display images automatically on buffer write.
-```vim
-let vim_markdown_preview_toggle=2
-```
+
+>```vim
+>let vim_markdown_preview_toggle=2
+>```
 
 Example: To disregard images and still automatically preview on buffer write.
-```vim
-let vim_markdown_preview_toggle=3
-```
+
+>```vim
+>let vim_markdown_preview_toggle=3
+>```
 
 <a name='hotkey'></a>
+
 ### The `vim_markdown_preview_hotkey` option
 
 By default, this plugin maps `<C-p>` (Control p) to activate the preview. To remap Control p to a different hotkey, change the binding. Don't forget to add the single quotation marks.
@@ -104,33 +112,41 @@ By default, this plugin maps `<C-p>` (Control p) to activate the preview. To rem
 Default: `'<C-p>'`
 
 Example: Mapping Control M.
-```vim
-let vim_markdown_preview_hotkey='<C-m>'
-```
+
+>```vim
+>let vim_markdown_preview_hotkey='<C-m>'
+>```
 
 <a name='browser'></a>
+
 ### The `vim_markdown_preview_browser` option
 
-By default, if you are using Unix, [Google Chrome](https://www.google.com/chrome/) is the default browser. If you are on Mac OS X, [Safari](https://www.apple.com/safari/) is the default. If you are using Linux, execute the following command in terminal, to change the default browser. ```bash
-sudo update-alternatives --config x-www-browser
-```
+By default, if you are using Mac OS X, [Safari][safari_lnk] is the default browser. If you are using Linux, execute the following command in terminal, to change the default browser. 
+
+>```bash
+>sudo update-alternatives --config x-www-browser
+>```
+
 Note that bug [#16](https://github.com/JamshedVesuna/vim-markdown-preview/issues/16) does not allow cross operating system and browser support. See the [wiki page](https://github.com/JamshedVesuna/vim-markdown-preview/wiki/Use-other-browser-to-preview-markdown) for more help.
 
 Default: `'Google Chrome'`
 
 Example: 
 
-* Using Google Chrome.
-    * ```vim
-let vim_markdown_preview_browser='Google Chrome'
-```
+* Using [Google Chrome][chrome_lnk].
 
-* Using Mozilla Firefox.
-    * ```vim
-let vim_markdown_preview_browser='Mozilla Firefox'
-```
+>```vim
+>let vim_markdown_preview_browser='Google Chrome'
+>```
+
+* Using [Mozilla Firefox][ff_lnk].
+
+>```vim
+>let vim_markdown_preview_browser='Mozilla Firefox'
+>```
 
 <a name='temp'></a>
+
 ### The `vim_markdown_preview_temp_file` option
 
 By default, this plugin keeps the rendered `.html` file. If you would automatically like to remove the html file after opening it in a browser, set this option to `1`. Note that removing the rendered html file with a slow browser may err.
@@ -138,45 +154,53 @@ By default, this plugin keeps the rendered `.html` file. If you would automatica
 Default: `0`
 
 Example: Remove the rendered preview.
-```vim
-let vim_markdown_preview_temp_file=1
-```
+
+>```vim
+>let vim_markdown_preview_temp_file=1
+>```
 
 <a name='github'></a>
+
 ### The `vim_markdown_preview_github` option
 
-If you prefer [GitHub flavoured markdown](https://help.github.com/articles/github-flavored-markdown/) you need to install [Python grip](https://github.com/joeyespo/grip). Note that this makes a request to [GitHub's API](https://developer.github.com/v3/markdown/) (causing latencies) and may require [authentication](https://github.com/joeyespo/grip#access). This option also requires a network connection.
+If you prefer [GitHub flavored markdown](https://help.github.com/articles/github-flavored-markdown/) you need to install [Python grip](https://github.com/joeyespo/grip). Note that this makes a request to [GitHub's API](https://developer.github.com/v3/markdown/) (causing latencies) and may require [authentication](https://github.com/joeyespo/grip#access). This option also requires a network connection.
 
 Default: `0`
 
-Example: Use GitHub flavoured markdown.
-```vim
-let vim_markdown_preview_github=1
-```
+Example: Use GitHub flavored markdown.
+
+>```vim
+>let vim_markdown_preview_github=1
+>```
 
 <a name='perl'></a>
+
 ### The `vim_markdown_preview_perl` option
-If you prefer to use John Gruber's [Markdown.pl](https://daringfireball.net/projects/markdown/) to render HTML, set the following flag:
+If you prefer to use John Gruber's [Markdown.pl][md_lnk] to render HTML, set the following flag:
 
 Default: `0`
 
-Example: Use Markdown.pl to render HTML.
-```vim
-let vim_markdown_preview_perl=1
-```
+Example: Use [Markdown.pl][md_lnk] to render HTML.
+
+>```vim
+>let vim_markdown_preview_perl=1
+>```
 
 <a name='pandoc'></a>
+
 ### The `vim_markdown_preview_pandoc` option
-If you prefer to use John MacFarlane's [Pandoc](http://pandoc.org/) to render HTML, set the following flag:
+If you prefer to use John MacFarlane's [Pandoc][pandoc_lnk] to render HTML, set the following flag:
 
 Default: `0`
 
-Example: Use Pandoc to render HTML.
-```vim
-let vim_markdown_preview_pandoc=1
-```
+Example: Use [Pandoc][pandoc_lnk] to render HTML.
+
+>```vim
+>let vim_markdown_preview_pandoc=1
+>```
 
 <a name='xdg'></a>
+
 ### The `vim_markdown_preview_use_xdg_open` option
 
 If your system does not come with `see`, and you would like to use `xdg-open` to view your rendered html in the browser, set the following flag:
@@ -184,16 +208,24 @@ If your system does not come with `see`, and you would like to use `xdg-open` to
 Default: `0`
 
 Example: Use `xdg-open`.
-```vim
-let vim_markdown_preview_use_xdg_open=1
-```
+
+>```vim
+>let vim_markdown_preview_use_xdg_open=1
+>```
 
 Behind The Scenes
 -----------------
 
 1. First, this plugin renders your markdown as html and creates a temporary html file.
-    * If [image rendering](#toggle) is on, the html file will be in your [working directory](https://en.wikipedia.org/wiki/Working_directory).
-    * Otherwise, it will be in `/tmp/`.
+  * If [image rendering](#toggle) is on, the html file will be in your [working directory](https://en.wikipedia.org/wiki/Working_directory).
+  * Otherwise, it will be in `/tmp/`.
 2. Next, this plugin either opens the html file or refreshes the Google Chrome or Safari tab.
-    * If you are using GitHub flavoured markdown, `grip` will make a call to the GitHub API and retrieve the html.
+  * If you are using GitHub flavored markdown, `grip` will make a call to the GitHub API and retrieve the html.
 3. Lastly, if you choose, this plugin will remove the temporary file.
+
+[md_lnk]: http://daringfireball.net/projects/markdown
+[grip_lnk]: https://github.com/joeyespo/grip
+[safari_lnk]: https://www.apple.com/safari/
+[pandoc_lnk]: https://pandoc.org/
+[chrome_lnk]: https://www.google.com/chrome/
+[ff_lnk]: https://www.mozilla.org/firefox/
